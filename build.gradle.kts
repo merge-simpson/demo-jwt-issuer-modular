@@ -27,5 +27,6 @@ subprojects {
 }
 
 dependencies {
-
+    implementation(project(":jwt-api"))
+    implementation(project(":jwt-issuer"))
 }
