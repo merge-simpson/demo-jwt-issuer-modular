@@ -61,7 +61,12 @@ public class JwtIssuer implements BiFunction<String, Map<String, ?>, String> {
                 );
     }
 
+    public String issue(String subject) {
+        return apply(subject, Map.of());
+    }
+
     public String issue(String subject, Map<String, ?> extendedClaims) {
+        extendedClaims = extendedClaims != null ? extendedClaims : Map.of();
         return apply(subject, extendedClaims);
     }
 
