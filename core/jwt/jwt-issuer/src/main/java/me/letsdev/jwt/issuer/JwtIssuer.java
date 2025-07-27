@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import me.letsdev.jwt.api.AsymmetricJwtSignatureAlgorithm;
 import me.letsdev.jwt.api.HmacJwtSignatureAlgorithm;
 
 import java.util.Date;
@@ -34,6 +35,28 @@ public class JwtIssuer implements BiFunction<String, Map<String, ?>, String> {
         this.jwtBuilder = Jwts.builder()
                 .signWith(
                         secretKey,
+                        algorithm.jjwtSignatureAlgorithm()
+                );
+    }
+
+    /**
+     * Create a new JwtIssuer for asymmetric (RSA, EC, or EdDSA) signing.
+     *
+     * @param base64PrivateKey     the private key in PKCS#8 format, as a base64-encoded string
+     * @param maxAgeInSeconds      the maximum validity period of the token, in seconds
+     * @param algorithm            the asymmetric signature algorithm to use
+     *                             (RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, ES512, or EdDSA)
+     */
+    public JwtIssuer(
+            String base64PrivateKey,
+            long maxAgeInSeconds,
+            AsymmetricJwtSignatureAlgorithm algorithm
+    ) {
+        this.maxAge = maxAgeInSeconds;
+
+        this.jwtBuilder = Jwts.builder()
+                .signWith(
+                        algorithm.privateKeyFromBase64(base64PrivateKey),
                         algorithm.jjwtSignatureAlgorithm()
                 );
     }
