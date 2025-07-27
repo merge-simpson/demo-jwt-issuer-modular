@@ -1,3 +1,4 @@
+import me.letsdev.jwt.api.AsymmetricJwtSignatureAlgorithm;
 import me.letsdev.jwt.api.HmacJwtSignatureAlgorithm;
 import me.letsdev.jwt.issuer.JwtIssuer;
 
@@ -5,13 +6,17 @@ import java.util.Base64;
 
 public class MainApplication {
     public static void main(String[] args) {
+        // HMAC 예시
         JwtIssuer hmacIssuer = new JwtIssuer(
                 "uahwajqrxX5MU7BXl52ZEClgVXF4rFD/yf9SOdJhU+bWBDTOQjuSwj78e2yxfVuQMXmtMmRaM+YjvIuAb3ghcA",
                 3_600L,
                 HmacJwtSignatureAlgorithm.HS512
         );
+        String hmacSignedJwt = hmacIssuer.issue("abc123");
+        printJwt(hmacSignedJwt);
+    }
 
-        String jwt = hmacIssuer.issue("abc123");
+    private static void printJwt(String jwt) {
         String[] sections = jwt.split("\\.");
 
         System.out.printf("""
@@ -24,7 +29,7 @@ public class MainApplication {
                 
                 Payload:
                   %s
-                  
+                
                 Signature:
                   %s
                 """,
