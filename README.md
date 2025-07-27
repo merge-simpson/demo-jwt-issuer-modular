@@ -1,6 +1,6 @@
 # JwtIssuer 모듈
 
-`JwtIssuer` 모듈은 JJWT 라이브러리를 기반으로 HMAC 및 비대칭 서명 방식의 JWT(JSON Web Token)를 간편하게 발급할 수 있도록 도와주는 유틸리티입니다.
+`JwtIssuer` 모듈은 JJWT 라이브러리를 기반으로 HMAC 및 비대칭 서명 방식의 JWT(JSON Web Token)를 간편하게 발급할 수 있도록 돕습니다.
 
 ## 주요 기능
 - **HMAC 서명 지원**: HS256, HS384, HS512 알고리즘을 사용한 토큰 발급
