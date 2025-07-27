@@ -14,6 +14,17 @@ public class MainApplication {
         );
         String hmacSignedJwt = hmacIssuer.issue("abc123");
         printJwt(hmacSignedJwt);
+
+        // Ed25519 예시
+        JwtIssuer edDsaIssuer = new JwtIssuer("""
+                -----BEGIN PRIVATE KEY-----
+                MC4CAQAwBQYDK2VwBCIEIExZ62Xae/u/s00tHgPTdwuhfAIXnvBLuijfRiKWc4xV
+                -----END PRIVATE KEY-----""",
+                3_600L,
+                AsymmetricJwtSignatureAlgorithm.EdDSA
+        );
+        String asymmetricSignedJwt = edDsaIssuer.issue("abc123");
+        printJwt(asymmetricSignedJwt);
     }
 
     private static void printJwt(String jwt) {
